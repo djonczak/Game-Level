@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59091ca68d3a867419bd4882aeb9f69d, type: 3}
+  m_Name: PLGame
+  m_EditorClassIdentifier: 
+  textToDisplay:
+  - Potrzebuje krysztalu, by aktywowac portal
+  - Wcisnij[E], by aktywowac portal
+  - Wcisnij [E]
+  - Musze znalezc inna droge
+  - Wcisnij [E]
+  - Wcisnij [E]
+  - Wcisnij [E]
+  - W tym piedestale znajduja sie trzy dziury
+  - Wcisnij [E], wloz krysztaly
+  - '[E]'
+  - Znajdz zwiadowcow
+  - Wznow
+  - Zapisz
+  - Wyjdz
+  - Podniosles krysztal teleportacyjny
+  - Podniosles krwawy krysztal
+  - Zapisano
