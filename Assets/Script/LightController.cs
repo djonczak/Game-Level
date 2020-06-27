@@ -1,13 +1,19 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class LightController : MonoBehaviour {
+public class LightController : MonoBehaviour 
+{
 
-    Light _light;
-	// Use this for initialization
-	void Start () {
+    [SerializeField] private float _lightIntensity = 0.1f;
+    private Light _light;
+
+	private void Awake () 
+    {
         _light = GetComponent<Light>();
-        _light.intensity = 0.1f;
+        _light.intensity = _lightIntensity;
 	}
+
+    private void Start()
+    {
+        _light.intensity = _lightIntensity;
+    }
 }

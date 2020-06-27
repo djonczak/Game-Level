@@ -1,52 +1,49 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using System.IO;
 
 public class SaveData : MonoBehaviour
 {
-    Transform player;
-    GameManager manager;
-    PlayerInfo playerSave = new PlayerInfo();
-    public GameObject saveInformation;
+    [SerializeField] private Animator _infoText;
 
-    private string gameDataFileName;
-    string saveInfo;
-    // Use this for initialization
-    void Awake()
+    private Transform _player;
+    private PlayerInfo _playerSave = new PlayerInfo();
+
+    private string _saveFileName;
+    private string _saveInfo;
+
+    private void Awake()
     {
-        player = GameObject.FindGameObjectWithTag("Player").transform;
-        manager = GetComponent<GameManager>();
-        gameDataFileName = Application.dataPath + "/save.json";
-        saveInfo = PlayerPrefs.GetString("Saves", saveInfo);
-        CheckSave(saveInfo);
+        _player = GameObject.FindGameObjectWithTag("Player").transform;
+        _saveFileName = Application.dataPath + "/save.json";
+        _saveInfo = PlayerPrefs.GetString("Saves", _saveInfo);
+        CheckSave(_saveInfo);
     }
 
 
     public void SaveGame()
     {
-        playerSave.playerPosition = new Vector3(player.position.x, player.position.y, player.position.z);
-        playerSave.hasTeleported = manager.teleported;
-        playerSave.gotTeleportationStone = manager.hasTeleportationStone;
-        playerSave.gotFirstCrystal = manager.FirstCrystal;
-        playerSave.gotSecondCrystal = manager.SecondCrystal;
-        playerSave.gotThirdCrystal = manager.ThirdCrystal;
+        _playerSave.PlayerPosition = new Vector3(_player.position.x, _player.position.y, _player.position.z);
+        _playerSave.HasTeleported = CementeryManager.instance.ReturnIfTeleported();
+        _playerSave.HasTeleportationStone = CementeryManager.instance.ReturnTeleportStone();
+        _playerSave.HasFirstCrystal = CementeryManager.instance.ReturnFirstCrystal();
+        _playerSave.HasSecondCrystal = CementeryManager.instance.ReturnSecondCrystal();
+        _playerSave.HasThirdCrystal = CementeryManager.instance.ReturnThirdCrystal();
 
-        string json = JsonUtility.ToJson(playerSave);
-        File.WriteAllText(gameDataFileName, json);
-        StartCoroutine("ShowInfo", 1f);
+        string json = JsonUtility.ToJson(_playerSave);
+        File.WriteAllText(_saveFileName, json);
+        _infoText.SetTrigger("Show");
     }
 
     public void LoadSave()
     {
-        string json = File.ReadAllText(gameDataFileName);
-        JsonUtility.FromJsonOverwrite(json, playerSave);
-        player.transform.position = new Vector3(playerSave.playerPosition.x,playerSave.playerPosition.y,playerSave.playerPosition.z);
-        manager.hasTeleportationStone = playerSave.gotTeleportationStone;
-        manager.teleported = playerSave.hasTeleported;
-        manager.FirstCrystal = playerSave.gotFirstCrystal;
-        manager.SecondCrystal = playerSave.gotSecondCrystal;
-        manager.ThirdCrystal = playerSave.gotThirdCrystal;
+        string json = File.ReadAllText(_saveFileName);
+        JsonUtility.FromJsonOverwrite(json, _playerSave);
+        _player.transform.position = new Vector3(_playerSave.PlayerPosition.x, _playerSave.PlayerPosition.y, _playerSave.PlayerPosition.z);
+        CementeryManager.instance.SetIfTeleported(_playerSave.HasTeleported);
+        CementeryManager.instance.SetItemTeleportStone(_playerSave.HasTeleportationStone);
+        CementeryManager.instance.SetItemFirstCrystal(_playerSave.HasFirstCrystal);
+        CementeryManager.instance.SetItemSecondCrystal(_playerSave.HasSecondCrystal);
+        CementeryManager.instance.SetItemThirdCrystal(_playerSave.HasThirdCrystal);
     }
 
     void CheckSave(string check)
@@ -54,27 +51,20 @@ public class SaveData : MonoBehaviour
        if (check == "1")
        {
             LoadSave();
-            saveInfo = "0";
-            PlayerPrefs.SetString("Saves", saveInfo);
+            _saveInfo = "0";
+            PlayerPrefs.SetString("Saves", _saveInfo);
         }
-    }
-
-    IEnumerator ShowInfo(float time)
-    {
-        saveInformation.SetActive(true);
-        yield return new WaitForSeconds(time);
-        saveInformation.SetActive(false);
     }
 }
 
 [System.Serializable]
 public class PlayerInfo
 {
-    public Vector3 playerPosition;
-    public bool hasTeleported;
-    public bool gotTeleportationStone;
-    public bool gotFirstCrystal;
-    public bool gotSecondCrystal;
-    public bool gotThirdCrystal;
+    public Vector3 PlayerPosition;
+    public bool HasTeleported;
+    public bool HasTeleportationStone;
+    public bool HasFirstCrystal;
+    public bool HasSecondCrystal;
+    public bool HasThirdCrystal;
 }
 

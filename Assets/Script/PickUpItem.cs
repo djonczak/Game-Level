@@ -1,22 +1,19 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
 
-public class PickUpItem : MonoBehaviour {
+public class PickUpItem :  ItemInteraction
+{
+    [SerializeField] private int _itemNumber;
+    [SerializeField] Animator _textAnimation;
+    [SerializeField] private Highlighter _higlight;
 
-    public GameManager manager;
-    public int itemNumber;
-
-    private void OnTriggerStay(Collider other)
+    public override void ShowInteraction()
     {
-        if(other.tag == "Player")
-        {
-            if (Input.GetKey(KeyCode.E))
-            {
-                manager.SendMessage("TakeItem", itemNumber);
-                gameObject.SetActive(false);
-            }
-        }
-    } 
+        _textAnimation.SetTrigger("Show");
+    }
+
+    public override void Interact()
+    {
+        CementeryManager.instance.TakeItem(_itemNumber);
+        gameObject.SetActive(false);
+    }
 }

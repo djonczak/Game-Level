@@ -1,13 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 
-[CreateAssetMenu(fileName ="New lang", menuName = "LangMenu")]
+[CreateAssetMenu(fileName ="New language", menuName = "Language")]
 public class Language : ScriptableObject {
-    ///////Menu Text
 
-    public string[] menusText;
-  
-
+    public List<string> Text;
 }

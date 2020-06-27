@@ -7,54 +7,58 @@ using System.IO;
 
 public class Menu : MonoBehaviour
 {
-    public Language pl;
-    public Language ang;
-    public Language ger;
+    [SerializeField] private Language _polish;
+    [SerializeField] private Language _english;
+    [SerializeField] private Language _german;
 
-    public GameObject menu;
-    public GameObject settings;
-    public GameObject loadButton;
+    [SerializeField] private GameObject _menu;
+    [SerializeField] private GameObject _settings;
+    [SerializeField] private GameObject _loadButton;
 
-    public Text[] menuText;
+    [SerializeField] private List<Text> _menuText;
 
-    string language;
-    string langUpdate;
-    string SaveStatus;
+    private string _language;
+    private string _saveStatus;
 
-    public void Start()
+    private void Awake()
     {
-        settings.SetActive(false);
-        Cursor.visible = true;
-        langUpdate = PlayerPrefs.GetString("LANG", langUpdate);
-        ExchangeLanguage(langUpdate);
+        var language = PlayerPrefs.GetString("LANG");
+        ExchangeLanguage(language);
+
         if (System.IO.File.Exists(Application.dataPath + "/save.json"))
         {
-            loadButton.SetActive(true);
+            _loadButton.SetActive(true);
         }
         else
         {
-            loadButton.SetActive(false);
+            _loadButton.SetActive(false);
         }
+    }
+
+    private void Start()
+    {
+        _settings.SetActive(false);
+        Cursor.visible = true;
     }
 
     public void NewGame()
     {
-        SaveStatus = "0";
-        PlayerPrefs.SetString("Saves", SaveStatus);
+        _saveStatus = "0";
+        PlayerPrefs.SetString("Saves", _saveStatus);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
     public void Continue()
     {
-        SaveStatus = "1";
-        PlayerPrefs.SetString("Saves",SaveStatus);
+        _saveStatus = "1";
+        PlayerPrefs.SetString("Saves", _saveStatus);
         SceneManager.LoadScene("Test");
     }
 
     public void Settings()
     {
-        settings.SetActive(true);
-        menu.SetActive(false);
+        _settings.SetActive(true);
+        _menu.SetActive(false);
     }
 
     public void Quit()
@@ -64,54 +68,54 @@ public class Menu : MonoBehaviour
 
     public void Back()
     {
-        settings.SetActive(false);
-        menu.SetActive(true);
+        _settings.SetActive(false);
+        _menu.SetActive(true);
     }
 
     public void SetPolish()
     {
-        language = "PL";
-        PlayerPrefs.SetString("LANG", language);
+        _language = "PL";
+        PlayerPrefs.SetString("LANG", _language);
         ExchangeLanguage("PL");
     }
 
     public void SetEnglish()
     {
-        language = "ENG";
-        PlayerPrefs.SetString("LANG", language);
+        _language = "ENG";
+        PlayerPrefs.SetString("LANG", _language);
         ExchangeLanguage("ENG");
     }
 
 
     public void SetGerman()
     {
-        language = "GER";
-        PlayerPrefs.SetString("LANG", language);
+        _language = "GER";
+        PlayerPrefs.SetString("LANG", _language);
         ExchangeLanguage("GER");
     }
 
-    void ExchangeLanguage(string texts)
+    private void ExchangeLanguage(string texts)
     {
         if(texts == "PL"){
-            for (int i = 0; i < menuText.Length; i++)
+            for (int i = 0; i < _menuText.Count; i++)
             {
-                menuText[i].text = pl.menusText[i];
+                _menuText[i].text = _polish.Text[i];
             }
         }
 
         if (texts == "ENG")
         {
-            for (int i = 0; i < menuText.Length; i++)
+            for (int i = 0; i < _menuText.Count; i++)
             {
-                menuText[i].text = ang.menusText[i];
+                _menuText[i].text = _english.Text[i];
             }
         }
 
         if (texts == "GER")
         {
-            for (int i = 0; i < menuText.Length; i++)
+            for (int i = 0; i < _menuText.Count; i++)
             {
-                menuText[i].text = ger.menusText[i];
+                _menuText[i].text = _german.Text[i];
             }
         }
     }

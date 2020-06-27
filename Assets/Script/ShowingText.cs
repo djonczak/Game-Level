@@ -1,29 +1,22 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
 
 public class ShowingText : MonoBehaviour {
 
-    public GameObject canv;
-	// Use this for initialization
-	void Start () {
-        canv.SetActive(false);
-    }
+    [SerializeField] private Animator _text;
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "Player")
+        if(other.CompareTag("Player"))
         {
-            canv.SetActive(true);
+            _text.SetTrigger("Show");
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.tag == "Player")
+        if (other.CompareTag("Player"))
         {
-            canv.SetActive(false);
+            _text.SetTrigger("Hide");
         }
     }
 }

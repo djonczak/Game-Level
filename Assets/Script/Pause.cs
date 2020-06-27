@@ -21,7 +21,6 @@ public class Pause : MonoBehaviour {
         pauseCanvas.SetActive(false);
     }
 
-    // Update is called once per frame
     void Update () {
         if (Input.GetKeyDown(KeyCode.Escape))
         {

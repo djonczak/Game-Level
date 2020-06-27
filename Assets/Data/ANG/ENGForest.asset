@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 59091ca68d3a867419bd4882aeb9f69d, type: 3}
-  m_Name: ANGame
+  m_Script: {fileID: 11500000, guid: 219b514287801a048843c88afc3bcda3, type: 3}
+  m_Name: ENGForest
   m_EditorClassIdentifier: 
-  textToDisplay:
+  Text:
   - I need teleportation crystal
   - Press [E] to activate portal
   - Press [E]
@@ -20,9 +20,9 @@ MonoBehaviour:
   - Press [E]
   - Press [E]
   - Press [E]
-  - There are three holes in this piedestal
+  - There are three holes in this pedestal.
   - Press [E] put three crystals
-  - '[E]'
+  - Press [E]
   - Find scouts
   - Resume
   - Save

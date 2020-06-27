@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 59091ca68d3a867419bd4882aeb9f69d, type: 3}
-  m_Name: PLGame
+  m_Script: {fileID: 11500000, guid: 219b514287801a048843c88afc3bcda3, type: 3}
+  m_Name: PLForest
   m_EditorClassIdentifier: 
-  textToDisplay:
+  Text:
   - Potrzebuje krysztalu, by aktywowac portal
   - Wcisnij[E], by aktywowac portal
   - Wcisnij [E]
@@ -22,7 +22,7 @@ MonoBehaviour:
   - Wcisnij [E]
   - W tym piedestale znajduja sie trzy dziury
   - Wcisnij [E], wloz krysztaly
-  - '[E]'
+  - Wcisnij [E]
   - Znajdz zwiadowcow
   - Wznow
   - Zapisz

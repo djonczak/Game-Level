@@ -1,39 +1,36 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class EnterDungeon : MonoBehaviour {
+public class EnterDungeon : ItemInteraction {
 
-    public GameObject text;
-    public Text textInfo;
-    bool isDone;
-    private void Start()
-    {
-        text.SetActive(false);
-    }
+    [SerializeField] private Animator _text;
+    [SerializeField] private Text _textInfo;
+    private bool IsDone;
 
-    private void OnTriggerStay(Collider other)
+    public override void ShowInteraction()
     {
-        if (other.tag == "Player")
+        if (IsDone == false)
         {
-            if (isDone == false)
-            {
-                text.SetActive(true);
-                if (Input.GetKey(KeyCode.E))
-                {
-                    isDone = true;
-                    StartCoroutine("NextScene", 3f);
-                }
-            }
+            _text.SetTrigger("Show");
         }
     }
 
-    IEnumerator NextScene(float time)
+    public override void Interact()
     {
-        textInfo.text = "DLC 399$";
+        if (Input.GetKey(KeyCode.E) && IsDone == false)
+        {
+            StartCoroutine(NextScene(3f));
+            IsDone = true;
+        }
+    }
+
+    private IEnumerator NextScene(float time)
+    {
+        _textInfo.text = "DLC 399$";
         yield return new WaitForSeconds(time);
+        _text.SetTrigger("Hide");
         SceneManager.LoadScene("Menu");
     }
 }

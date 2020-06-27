@@ -1,46 +1,45 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class ExchangeLanguage : MonoBehaviour {
 
-    public LangGame pl;
-    public LangGame ang;
-    public LangGame ger;
+    [SerializeField] private Language Polish;
+    [SerializeField] private Language English;
+    [SerializeField] private Language German;
 
-    public Text[] texts;
-    string language;
-    void Start()
+    [SerializeField] private List<Text> _levelTexts = new List<Text>();
+
+    private void Awake()
     {
-      language = PlayerPrefs.GetString("LANG", language);
+        var language = PlayerPrefs.GetString("LANG");
         Exchange(language);
     }
 
-    void Exchange(string text)
+    private void Exchange(string text)
     {
         if (text == "PL")
         {
-            for (int i = 0; i < texts.Length; i++)
+            for (int i = 0; i < _levelTexts.Count; i++)
             {
-                texts[i].text = pl.textToDisplay[i];
+                _levelTexts[i].text = Polish.Text[i];
             }
         }
 
         if (text == "ENG")
         {
-            for (int i = 0; i < texts.Length; i++)
+            for (int i = 0; i < _levelTexts.Count; i++)
             {
-                texts[i].text = ang.textToDisplay[i];
+                _levelTexts[i].text = English.Text[i];
             }
         }
 
 
         if (text == "GER")
         {
-            for (int i = 0; i < texts.Length; i++)
+            for (int i = 0; i < _levelTexts.Count; i++)
             {
-                texts[i].text = ger.textToDisplay[i];
+                _levelTexts[i].text = German.Text[i];
             }
         }
     }
