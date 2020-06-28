@@ -2,10 +2,8 @@
 
 public class TeleportPedestal : ItemInteraction
 {
-    public Transform Player;
-
-    [SerializeField] private Transform _endPosition;
     [SerializeField] private GameObject _teleportEffect;
+    [SerializeField] private GameObject _teleportCollider;
     [SerializeField] private Animator _text1;
     [SerializeField] private Animator _text2;
 
@@ -25,7 +23,6 @@ public class TeleportPedestal : ItemInteraction
     {
         if (CementeryManager.instance.ReturnTeleportStone())
         {
-            _text1.SetTrigger("Hide");
             _text2.SetTrigger("Show");
             _teleportEffect.SetActive(false);
         }
@@ -37,23 +34,21 @@ public class TeleportPedestal : ItemInteraction
 
     public override void Interact()
     {
+        _teleportEffect.SetActive(true);
         _text1.SetTrigger("Hide");
         _text2.SetTrigger("Hide");
-        Teleport();
+        _teleportCollider.SetActive(true);
     }
 
-    //private void OnTriggerExit(Collider other)
-    //{
-    //    if(other.CompareTag("Player"))
-    //    {
-    //        _text1.SetActive(false);
-    //        _text2.SetActive(false);
-    //    }
-    //}
-
-    private void Teleport()
+    public override void HideInteraction()
     {
-        CementeryManager.instance.SetIfTeleported(true);
-        Player.transform.position = _endPosition.position;
+        if (CementeryManager.instance.ReturnTeleportStone())
+        {
+            _text2.SetTrigger("Hide");
+        }
+        else
+        {
+            _text1.SetTrigger("Hide");
+        }
     }
 }

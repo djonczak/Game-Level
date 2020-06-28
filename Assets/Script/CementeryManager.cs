@@ -11,10 +11,13 @@ public class CementeryManager : MonoBehaviour
     private bool _hasSecondCrystal;
     private bool _hasThirdCrystal;
 
-    public GameObject teleportCrystal;
-    public GameObject bloodCrystal1;
-    public GameObject bloodCrystal2;
-    public GameObject bloodCrystal3;
+    [SerializeField] private GameObject TeleportCrystal;
+    [SerializeField] private GameObject BloodCrystal1;
+    [SerializeField] private GameObject BloodCrystal2;
+    [SerializeField] private GameObject BloodCrystal3;
+
+    [SerializeField] private Animator _bloodCrystalInfo;
+    [SerializeField] private Animator _teleportationCrystalInfo;
 
     private void Awake()
     {
@@ -38,18 +41,22 @@ public class CementeryManager : MonoBehaviour
         if (index == 1)
         {
             _hasTeleportationStone = true;
+            _teleportationCrystalInfo.SetTrigger("Show");
         }
         if (index == 2)
         {
             _hasFirstCrystal = true;
+            _bloodCrystalInfo.SetTrigger("Show");
         }
         if (index == 3)
         {
             _hasSecondCrystal = true;
+            _bloodCrystalInfo.SetTrigger("Show");
         }
         if (index == 4)
         {
             _hasThirdCrystal = true;
+            _bloodCrystalInfo.SetTrigger("Show");
         }
     }
 
@@ -57,19 +64,19 @@ public class CementeryManager : MonoBehaviour
     {
         if (_hasFirstCrystal)
         {
-            bloodCrystal1.SetActive(false);
+            BloodCrystal1.SetActive(false);
         }
         if (_hasSecondCrystal)
         {
-            bloodCrystal2.SetActive(false);
+            BloodCrystal2.SetActive(false);
         }
         if (_hasThirdCrystal)
         {
-            bloodCrystal3.SetActive(false);
+            BloodCrystal3.SetActive(false);
         }
         if (_hasTeleported || _hasTeleportationStone)
         {
-            teleportCrystal.SetActive(false);
+            TeleportCrystal.SetActive(false);
         }
     }
 

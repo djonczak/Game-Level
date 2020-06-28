@@ -10,7 +10,7 @@ public class ExchangeLanguage : MonoBehaviour {
 
     [SerializeField] private List<Text> _levelTexts = new List<Text>();
 
-    private void Awake()
+    private void Start()
     {
         var language = PlayerPrefs.GetString("LANG");
         Exchange(language);

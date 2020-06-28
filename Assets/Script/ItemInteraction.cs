@@ -7,6 +7,11 @@ public class ItemInteraction : MonoBehaviour
 
     }
 
+    public virtual void HideInteraction()
+    {
+
+    }
+
     public virtual void Interact()
     {
 

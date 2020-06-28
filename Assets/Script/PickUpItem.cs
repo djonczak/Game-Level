@@ -4,11 +4,15 @@ public class PickUpItem :  ItemInteraction
 {
     [SerializeField] private int _itemNumber;
     [SerializeField] Animator _textAnimation;
-    [SerializeField] private Highlighter _higlight;
 
     public override void ShowInteraction()
     {
         _textAnimation.SetTrigger("Show");
+    }
+
+    public override void HideInteraction()
+    {
+        _textAnimation.SetTrigger("Hide");
     }
 
     public override void Interact()

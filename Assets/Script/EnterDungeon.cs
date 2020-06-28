@@ -7,6 +7,7 @@ public class EnterDungeon : ItemInteraction {
 
     [SerializeField] private Animator _text;
     [SerializeField] private Text _textInfo;
+
     private bool IsDone;
 
     public override void ShowInteraction()

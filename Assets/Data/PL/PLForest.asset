@@ -15,14 +15,14 @@ MonoBehaviour:
   Text:
   - Potrzebuje krysztalu, by aktywowac portal
   - Wcisnij[E], by aktywowac portal
-  - Wcisnij [E]
+  - '[E]'
   - Musze znalezc inna droge
-  - Wcisnij [E]
-  - Wcisnij [E]
-  - Wcisnij [E]
+  - '[E]'
+  - '[E]'
+  - '[E]'
   - W tym piedestale znajduja sie trzy dziury
   - Wcisnij [E], wloz krysztaly
-  - Wcisnij [E]
+  - '[E]'
   - Znajdz zwiadowcow
   - Wznow
   - Zapisz

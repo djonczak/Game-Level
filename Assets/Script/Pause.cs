@@ -1,53 +1,47 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Pause : MonoBehaviour {
 
-    public GameObject pauseCanvas;
-    public bool isPausa;
-    public static Pause instance;
+    [SerializeField] private GameObject _pauseCanvas;
+    private bool _isPausa;
 
-    public void Start()
+    private void Awake()
     {
-        if (instance == null)
-        {
-            instance = this;
-        }
-        else if (instance != this)
-        {
-            Destroy(gameObject);
-        }
-        pauseCanvas.SetActive(false);
+        _pauseCanvas.SetActive(false);
+        OnResume();
     }
 
-    void Update () {
+    private void Update () 
+    {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            isPausa = !isPausa;
+            _isPausa = !_isPausa;
+            if (_isPausa)
+            {
+                OnPause();
+            }
+            else
+            {
+                OnResume();
+            }
         }
-
-        if (isPausa)
-        {
-            Time.timeScale = 0;
-            pauseCanvas.SetActive(true);
-            Cursor.visible = true;
-            UnitySampleAssets.Characters.FirstPerson.FirstPersonController.instance.canLook = false;
-        }
-
-        if (!isPausa )
-        {
-            Time.timeScale = 1;
-            pauseCanvas.SetActive(false);
-            Cursor.visible = false;
-            UnitySampleAssets.Characters.FirstPerson.FirstPersonController.instance.canLook = true;
-        }
-
 	}
 
     public void OnResume()
     {
-        isPausa = false;
+        _isPausa = false;
+        _pauseCanvas.SetActive(false);
+        Cursor.visible = false;
+        UnitySampleAssets.Characters.FirstPerson.FirstPersonController.instance.canLook = true;
+        UnitySampleAssets.Characters.FirstPerson.FirstPersonController.instance.enabled = true;
+    }
+
+    public void OnPause()
+    {
+        _pauseCanvas.SetActive(true);
+        Cursor.visible = true;
+        UnitySampleAssets.Characters.FirstPerson.FirstPersonController.instance.canLook = false;
+        UnitySampleAssets.Characters.FirstPerson.FirstPersonController.instance.enabled = false;
     }
 
     public void ExitGame()

@@ -14,7 +14,6 @@ namespace UnitySampleAssets.Characters.FirstPerson
         [SerializeField] private float walkSpeed;
         [SerializeField] private float runSpeed;
         [SerializeField] [Range(0f, 1f)] private float runstepLenghten;
-        [SerializeField] private float jumpSpeed;
         [SerializeField] private float stickToGroundForce;
         [SerializeField] private float _gravityMultiplier;
         [SerializeField] private MouseLook _mouseLook;
@@ -29,12 +28,10 @@ namespace UnitySampleAssets.Characters.FirstPerson
         [SerializeField] private AudioClip[] _footstepSounds;
                                              // an array of footstep sounds that will be randomly selected from.
 
-        [SerializeField] private AudioClip _jumpSound; // the sound played when character leaves the ground.
         [SerializeField] private AudioClip _landSound; // the sound played when character touches back on ground.
 
         ///////////////// non exposed privates /////////////////////////
         private Camera _camera;
-        private bool _jump;
         private float _yRotation;
         private CameraRefocus _cameraRefocus;
         private Vector2 _input;
@@ -45,10 +42,9 @@ namespace UnitySampleAssets.Characters.FirstPerson
         private Vector3 _originalCameraPosition;
         private float _stepCycle = 0f;
         private float _nextStep = 0f;
-        private bool _jumping = false;
 
         public static FirstPersonController instance;
-        // Use this for initialization
+
         private void Awake()
         {
             if (instance == null)
@@ -71,7 +67,6 @@ namespace UnitySampleAssets.Characters.FirstPerson
             _headBob.Setup(_camera, _stepInterval);
             _stepCycle = 0f;
             _nextStep = _stepCycle/2f;
-            _jumping = false;
         }
 
         // Update is called once per frame
@@ -81,19 +76,14 @@ namespace UnitySampleAssets.Characters.FirstPerson
             {
                 RotateView();
             }
-            // the jump state needs to read here to make sure it is not missed
-        
-            if (!_jump)
-                _jump = CrossPlatformInputManager.GetButtonDown("Jump");
 
             if (!_previouslyGrounded && _characterController.isGrounded)
             {
                 StartCoroutine(_jumpBob.DoBobCycle());
                 PlayLandingSound();
                 _moveDir.y = 0f;
-                _jumping = false;
             }
-            if (!_characterController.isGrounded && !_jumping && _previouslyGrounded)
+            if (!_characterController.isGrounded  && _previouslyGrounded)
             {
                 _moveDir.y = 0f;
             }
@@ -128,14 +118,6 @@ namespace UnitySampleAssets.Characters.FirstPerson
             if (_characterController.isGrounded)
             {
                 _moveDir.y = -stickToGroundForce;
-
-                if (_jump)
-                {
-                    _moveDir.y = jumpSpeed;
-                    PlayJumpSound();
-                    _jump = false;
-                    _jumping = true;
-                }
             }
             else
             {
@@ -146,12 +128,6 @@ namespace UnitySampleAssets.Characters.FirstPerson
 
             ProgressStepCycle(speed);
             UpdateCameraPosition(speed);
-        }
-
-        private void PlayJumpSound()
-        {
-            GetComponent<AudioSource>().clip = _jumpSound;
-            GetComponent<AudioSource>().Play();
         }
 
         private void ProgressStepCycle(float speed)

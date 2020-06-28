@@ -2,9 +2,9 @@
 
 public class BarrierPedestal : ItemInteraction
 {
-    [SerializeField] private GameObject _barrier;
     [SerializeField] private Animator _text1;
     [SerializeField] private Animator _text2;
+    [SerializeField] private Animator _barrierDown;
   
     private bool _isOpen;
 
@@ -29,9 +29,14 @@ public class BarrierPedestal : ItemInteraction
         if (Input.GetKey(KeyCode.E))
         {
             _isOpen = true;
-            _barrier.SetActive(false);
+            _barrierDown.SetTrigger("Show");
             _text1.SetTrigger("Hide");
             _text2.SetTrigger("Hide");
         }
+    }
+
+    public override void HideInteraction()
+    {
+        _text1.SetTrigger("Hide");
     }
 }
