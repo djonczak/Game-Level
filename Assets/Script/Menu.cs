@@ -17,6 +17,8 @@ public class Menu : MonoBehaviour
 
     [SerializeField] private List<Text> _menuText;
 
+    [SerializeField] Texture2D _cursorTexture;
+
     private string _language;
     private string _saveStatus;
 
@@ -33,6 +35,8 @@ public class Menu : MonoBehaviour
         {
             _loadButton.SetActive(false);
         }
+
+        Cursor.SetCursor(_cursorTexture, Vector2.zero, CursorMode.ForceSoftware);
     }
 
     private void Start()

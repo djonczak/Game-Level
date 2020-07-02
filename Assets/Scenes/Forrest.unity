@@ -106203,6 +106203,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _pauseCanvas: {fileID: 1976020569}
+  _cursorTexture: {fileID: 2800000, guid: 8c3adfdef10e40645a5b80a23c5fa1c1, type: 3}
 --- !u!82 &1515058454
 AudioSource:
   m_ObjectHideFlags: 0
