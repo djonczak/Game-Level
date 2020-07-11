@@ -14,7 +14,6 @@ public class BarrierPedestal : ItemInteraction
         {
             if (CementeryManager.instance.ReturnFirstCrystal() && CementeryManager.instance.ReturnSecondCrystal() && CementeryManager.instance.ReturnThirdCrystal())
             {
-                _text1.SetTrigger("Hide");
                 _text2.SetTrigger("Show");
             }
             else
@@ -26,7 +25,7 @@ public class BarrierPedestal : ItemInteraction
 
     public override void Interact()
     {
-        if (Input.GetKey(KeyCode.E))
+        if (_isOpen == false)
         {
             _isOpen = true;
             _barrierDown.SetTrigger("Show");
@@ -37,6 +36,13 @@ public class BarrierPedestal : ItemInteraction
 
     public override void HideInteraction()
     {
-        _text1.SetTrigger("Hide");
+        if (CementeryManager.instance.ReturnFirstCrystal() && CementeryManager.instance.ReturnSecondCrystal() && CementeryManager.instance.ReturnThirdCrystal())
+        {
+            _text2.SetTrigger("Hide");
+        }
+        else
+        {
+            _text1.SetTrigger("Hide");
+        }
     }
 }

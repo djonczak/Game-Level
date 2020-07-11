@@ -6,12 +6,12 @@ public class Pause : MonoBehaviour {
     [SerializeField] private Texture2D _cursorTexture;
     private bool _isPausa;
 
-    private void Awake()
+    private void Start()
     {
         _pauseCanvas.SetActive(false);
         OnResume();
-
         Cursor.SetCursor(_cursorTexture, Vector2.zero, CursorMode.ForceSoftware);
+        Cursor.visible = false;
     }
 
     private void Update () 

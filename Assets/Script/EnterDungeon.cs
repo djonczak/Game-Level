@@ -20,7 +20,7 @@ public class EnterDungeon : ItemInteraction {
 
     public override void Interact()
     {
-        if (Input.GetKey(KeyCode.E) && IsDone == false)
+        if (IsDone == false)
         {
             StartCoroutine(NextScene(3f));
             IsDone = true;
@@ -31,7 +31,6 @@ public class EnterDungeon : ItemInteraction {
     {
         _textInfo.text = "DLC 399$";
         yield return new WaitForSeconds(time);
-        _text.SetTrigger("Hide");
         SceneManager.LoadScene("Menu");
     }
 }

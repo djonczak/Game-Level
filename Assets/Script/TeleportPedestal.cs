@@ -7,6 +7,8 @@ public class TeleportPedestal : ItemInteraction
     [SerializeField] private Animator _text1;
     [SerializeField] private Animator _text2;
 
+    private bool _portalActivated;
+
     private void Start()
     {
         if (CementeryManager.instance.ReturnIfTeleported())
@@ -21,23 +23,29 @@ public class TeleportPedestal : ItemInteraction
 
     public override void ShowInteraction()
     {
-        if (CementeryManager.instance.ReturnTeleportStone())
+        if (_portalActivated == false)
         {
-            _text2.SetTrigger("Show");
-            _teleportEffect.SetActive(false);
-        }
-        else
-        {
-            _text1.SetTrigger("Show");
+            if (CementeryManager.instance.ReturnTeleportStone())
+            {
+                _text2.SetTrigger("Show");
+            }
+            else
+            {
+                _text1.SetTrigger("Show");
+            }
         }
     }
 
     public override void Interact()
     {
-        _teleportEffect.SetActive(true);
-        _text1.SetTrigger("Hide");
-        _text2.SetTrigger("Hide");
-        _teleportCollider.SetActive(true);
+        if (_portalActivated == false)
+        {
+            _teleportEffect.SetActive(true);
+            _text1.SetTrigger("Hide");
+            _text2.SetTrigger("Hide");
+            _teleportCollider.SetActive(true);
+            _portalActivated = true;
+        }
     }
 
     public override void HideInteraction()
